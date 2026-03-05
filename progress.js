@@ -3,8 +3,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const progressBar = document.getElementById('progress-bar');
 
     try {
-        const data = await chrome.storage.local.get(['downloadUrls', 'sourceTabUrl']);
+        const data = await chrome.storage.local.get(['downloadUrls', 'sourceTabUrl', 'sourceTabTitle']);
         const topUrls = data.downloadUrls;
+        const sourceTitle = data.sourceTabTitle || "ArchiImages";
 
         if (!topUrls || topUrls.length === 0) {
             statusDiv.innerText = "エラー: ダウンロードする画像が見つかりません。";
@@ -12,6 +13,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         statusDiv.innerText = `画像${topUrls.length}枚を変換・ダウンロード中...`;
+
+        // ファイル名として使えない文字を置換するクリーン関数
+        const sanitizeFilename = (name) => {
+            return name.replace(/[\\/:*?"<>|]/g, '-').trim();
+        };
+
+        // YYYYMMDD_HHMMSS 形式の日時を取得
+        const getTimestamp = () => {
+            const now = new Date();
+            const pad = (n) => n.toString().padStart(2, '0');
+            return `${now.getFullYear()}${pad(now.getMonth() + 1)}${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
+        };
+
+        const cleanTitle = sanitizeFilename(sourceTitle);
+        const timestamp = getTimestamp();
+        const folderName = `${cleanTitle}_${timestamp}`;
 
         const convertToWebPAndDownload = async (url, index) => {
             let objectUrl = null;
@@ -38,8 +55,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                             let webpUrl = canvas.toDataURL('image/webp', 0.9);
 
-                            const timestamp = new Date().getTime();
-                            const filename = `Archi_${timestamp}_${index + 1}.webp`;
+                            // フォルダ名/ファイル名.webp
+                            const filename = `${folderName}/${cleanTitle}_${timestamp}_${index + 1}.webp`;
 
                             chrome.downloads.download({
                                 url: webpUrl,
@@ -79,7 +96,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         statusDiv.innerText = `✅ ダウンロード完了！(${topUrls.length}枚)\nこのタブは閉じて構いません。`;
         statusDiv.style.color = "green";
 
-        await chrome.storage.local.remove(['downloadUrls', 'sourceTabUrl']);
+        await chrome.storage.local.remove(['downloadUrls', 'sourceTabUrl', 'sourceTabTitle']);
+
+        // 2秒後に自動的にウィンドウを閉じる
+        setTimeout(() => {
+            window.close();
+        }, 2000);
 
     } catch (error) {
         statusDiv.innerText = "エラーが発生しました";

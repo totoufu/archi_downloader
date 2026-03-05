@@ -46,10 +46,11 @@ document.getElementById('dlBtn').addEventListener('click', async () => {
 
     statusDiv.innerText = `画像を抽出しました。別タブでダウンロードを開始します...`;
 
-    // 抽出したURLと元タブのURLをストレージに保存し、進捗ウィンドウを開く
+    // 抽出したURLと元タブのURL/タイトルをストレージに保存し、進捗ウィンドウを開く
     await chrome.storage.local.set({
       downloadUrls: topUrls,
-      sourceTabUrl: tab.url
+      sourceTabUrl: tab.url,
+      sourceTabTitle: tab.title
     });
 
     chrome.windows.create({

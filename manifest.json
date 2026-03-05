@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Archi Downloader",
+  "version": "1.0",
+  "description": "閲覧中のページから主要な建築写真を抽出し、PCにダウンロードします。",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "downloads",
+    "declarativeNetRequest",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}

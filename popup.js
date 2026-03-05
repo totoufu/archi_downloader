@@ -46,13 +46,18 @@ document.getElementById('dlBtn').addEventListener('click', async () => {
 
     statusDiv.innerText = `画像を抽出しました。別タブでダウンロードを開始します...`;
 
-    // 抽出したURLと元タブのURLをストレージに保存し、進捗タブを開く
+    // 抽出したURLと元タブのURLをストレージに保存し、進捗ウィンドウを開く
     await chrome.storage.local.set({
       downloadUrls: topUrls,
       sourceTabUrl: tab.url
     });
 
-    chrome.tabs.create({ url: 'progress.html' });
+    chrome.windows.create({
+      url: 'progress.html',
+      type: 'popup',
+      width: 450,
+      height: 500
+    });
 
   } catch (error) {
     statusDiv.innerText = "エラーが発生しました";

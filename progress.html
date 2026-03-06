@@ -1,9 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
-    <title>ダウンロード進捗 - Archi Downloader</title>
+    <title>Download Progress - Archi Downloader</title>
     <style>
         body {
             font-family: sans-serif;
@@ -49,18 +48,47 @@
             background-color: #4CAF50;
             transition: width 0.3s;
         }
+
+        #folderDisplay {
+            font-size: 13px;
+            color: #555;
+            margin: 10px 0 4px;
+            word-break: break-all;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 12px;
+        }
+
+        #actionBtn {
+            padding: 10px 24px;
+            font-size: 15px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        #actionBtn:hover { background-color: #003d82; }
+        #actionBtn:disabled { background-color: #aaa; cursor: default; }
+
+        #actionBtn { display: none; }
     </style>
 </head>
-
 <body>
     <div class="container">
         <h1>Archi Downloader</h1>
-        <div id="status">準備中...</div>
+        <div id="status">Preparing...</div>
+        <div id="folderDisplay"></div>
+        <button id="actionBtn">Choose Folder</button>
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar"></div>
         </div>
     </div>
     <script src="progress.js"></script>
 </body>
-
 </html>

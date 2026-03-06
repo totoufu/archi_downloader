@@ -77,6 +77,25 @@
         #actionBtn:disabled { background-color: #aaa; cursor: default; }
 
         #actionBtn { display: none; }
+
+        #resultLog {
+            margin-top: 14px;
+            max-height: 180px;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 8px;
+            background: #fafafa;
+            display: none;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .log-ok { color: #1d6b33; }
+        .log-ng { color: #9c1c1c; }
+        .log-info { color: #334; }
     </style>
 </head>
 <body>
@@ -88,6 +107,7 @@
         <div class="progress-bar-container">
             <div id="progress-bar" class="progress-bar"></div>
         </div>
+        <div id="resultLog"></div>
     </div>
     <script src="progress.js"></script>
 </body>

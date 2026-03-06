@@ -14,12 +14,15 @@
       background: #e0e0e0; color: #444; font-weight: normal; border-radius: 3px;
     }
     #changeBtn:hover { background: #c8c8c8; }
-    #dlBtn {
+    .actionBtn {
       width: 100%; padding: 12px; background-color: #0056b3; color: white;
       border: none; border-radius: 6px; cursor: pointer; font-weight: bold;
     }
-    #dlBtn:hover { background-color: #004494; }
-    #dlBtn:disabled { background-color: #aaa; cursor: default; }
+    .actionBtn + .actionBtn { margin-top: 8px; }
+    .actionBtn:hover { background-color: #004494; }
+    .actionBtn:disabled { background-color: #aaa; cursor: default; }
+    #uploadBtn { background-color: #0f7a3a; }
+    #uploadBtn:hover { background-color: #0b5c2b; }
     #status { margin-top: 10px; font-size: 12px; color: #666; }
   </style>
 </head>
@@ -28,7 +31,8 @@
     <span id="folderName"></span>
     <button id="changeBtn" style="display:none;">&#22793;&#26356;</button>
   </div>
-  <button id="dlBtn">&#30011;&#20687;&#12434;&#12480;&#12454;&#12531;&#12525;&#12540;&#12489;</button>
+  <button id="dlBtn" class="actionBtn">&#30011;&#20687;&#12434;&#12480;&#12454;&#12531;&#12525;&#12540;&#12489;</button>
+  <button id="uploadBtn" class="actionBtn">VPS&#12408;&#36865;&#20449;</button>
   <div id="status"></div>
   <script src="popup.js"></script>
 </body>
